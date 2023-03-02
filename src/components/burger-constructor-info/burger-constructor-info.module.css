@@ -1,0 +1,16 @@
+.info {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+  gap: 4px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.currencyIcon {
+  transform: scale(1.4);
+}

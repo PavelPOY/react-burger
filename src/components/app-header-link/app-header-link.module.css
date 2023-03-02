@@ -1,0 +1,14 @@
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.on {
+  color: #F2F2F3;
+}
+
+.indent {
+  margin-right: 8px;
+}
