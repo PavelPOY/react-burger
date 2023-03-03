@@ -5,15 +5,11 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import Info from '../burger-constructor-info/burger-constructor-info';
 import { dataPropTypes } from '../../utils/prop-types';
 
-
 function BurgerConstructor({ data }) {
-  const dataType = data.filter((item) => {
-    if(item.type === 'sauce' || item.type === 'main') {
-      return item
-    } else {
-      return null
-    }
-  });
+  const ingredients = React.useMemo(() => data.filter((item) => item.type !== 'bun' ), [data]);
+  const ingredientBun = React.useMemo(() => data.filter((item) => item.type === 'bun'), [data]);
+  const contralPrice = React.useMemo(() => ingredientBun[0].price * 2 + ingredients.reduce((value,item) => value + item.price, 0),[ingredientBun,ingredients] );
+
   return (
     <section className={`${styles.section} pt-25`}>
       <div className='pl-4'>
@@ -22,13 +18,13 @@ function BurgerConstructor({ data }) {
             type="top"
             isLocked={true}
             text="Краторная булка N-200i (верх)"
-            price={200}
+            price={ingredientBun[0].price}
             thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
           />
         </div>
 
         <div className={styles.list}>
-        {dataType.map((item) => {
+        {ingredients.map((item) => {
             return (
               <div key={item._id} className={`${styles.containerElement} pt-4 pr-2`}>
                 <DragIcon type="primary" />
@@ -47,19 +43,19 @@ function BurgerConstructor({ data }) {
             type="bottom"
             isLocked={true}
             text="Краторная булка N-200i (низ)"
-            price={200}
+            price={ingredientBun[1].price}
             thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
           />
         </div>
 
-        <Info />
+        <Info contralPrice={contralPrice}/>
       </div>
     </section>
   );
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(dataPropTypes).isRequired,
+  data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
 }
 
 export default BurgerConstructor;

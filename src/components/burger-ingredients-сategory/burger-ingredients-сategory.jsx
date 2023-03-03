@@ -5,7 +5,7 @@ import Card from '../burger-ingredients-card/burger-ingredients-card';
 import { dataPropTypes } from '../../utils/prop-types';
 
 function Сategory({type, data, text}) {
-  const dataType = data.filter((item) => item.type === type);
+  const dataType = React.useMemo(() => data.filter((item) => item.type === type),[data]);
   return (
     <div className='pt-10' id={type}>
       <h2 className='text text_type_main-medium'>{text}</h2>
@@ -18,7 +18,7 @@ function Сategory({type, data, text}) {
 
 Сategory.propTypes = {
   type: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(dataPropTypes).isRequired,
+  data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
   text: PropTypes.string.isRequired
 }
 
