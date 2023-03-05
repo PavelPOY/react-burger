@@ -1,0 +1,19 @@
+.section {
+  max-width: 600px;
+}
+
+.category {
+  height: calc(100vh - 300px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.category::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2f2f37;
+}
+
+.category::-webkit-scrollbar-thumb {
+  padding-top: 20px;
+  background-color: #8585ad;
+}

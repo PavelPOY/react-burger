@@ -1,0 +1,15 @@
+.app {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main {
+  width: 100%;
+  max-width: 1240px;
+  display: flex;
+  gap: 40px;
+}
