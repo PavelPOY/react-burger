@@ -4,9 +4,9 @@ import styles from './burger-ingredients-card.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { dataPropTypes } from '../../utils/prop-types';
 
-function Card({info, openModal}) {
+function Card({info, ingredient}) {
   return (
-    <div className={styles.card} onClick={() => openModal(info) }>
+    <div className={styles.card} onClick={() => ingredient(info) }>
       <Counter count={1} size='default' />
       <img src={info.image} alt={info.name} />
       <div className={`${styles.price} pt-2 pb-2`}>
