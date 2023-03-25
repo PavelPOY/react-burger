@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './burger-ingredients-сategory.module.css';
 import Card from '../burger-ingredients-card/burger-ingredients-card';
-import { dataPropTypes } from '../../utils/prop-types';
+import { IngredientsContext } from '../../utils/context';
 
-function Сategory({type, data, text, ingredient}) {
+function Сategory({type, text, ingredient}) {
+  const {data} = React.useContext(IngredientsContext);
   const dataType = React.useMemo(() => data.filter((item) => item.type === type),[data]);
   return (
     <div className='pt-10' id={type}>
@@ -18,7 +19,6 @@ function Сategory({type, data, text, ingredient}) {
 
 Сategory.propTypes = {
   type: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
   text: PropTypes.string.isRequired,
   ingredient: PropTypes.func.isRequired,
 }
