@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './burger-constructor-info.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
-function Info({contralPrice}) {
+function Info({contralPrice,openModal}) {
   
   return (
     <div className={`${styles.info} pt-10 pr-4`}>
@@ -12,7 +12,7 @@ function Info({contralPrice}) {
           <CurrencyIcon type="primary" />
         </div>
       </div>
-      <Button htmlType="button" type="primary" size="large">Оформить заказ</Button>
+      <Button htmlType="button" type="primary" size="large" onClick={openModal}>Оформить заказ</Button>
     </div>
   );
 }
