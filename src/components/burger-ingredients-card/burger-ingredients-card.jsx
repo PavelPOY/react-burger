@@ -20,6 +20,7 @@ function Card({info, ingredient}) {
 
 Card.propTypes = {
   info: dataPropTypes.isRequired,
+  ingredient: PropTypes.func.isRequired,
 }
 
 export default Card;
