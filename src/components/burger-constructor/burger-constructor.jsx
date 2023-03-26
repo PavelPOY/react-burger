@@ -6,7 +6,6 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import {IngredientsContext} from '../../utils/context';
 import {getOrderData} from '../../utils/api';
-import {URLORD} from '../../utils/constant';
 
 function BurgerConstructor() {
   const {data} = React.useContext(IngredientsContext);
@@ -21,7 +20,7 @@ function BurgerConstructor() {
   const getOrder = () => {
     const id = ingredients.map(item => item._id);
     setOpenModal(true);
-    getOrderData(URLORD, id)
+    getOrderData(id)
       .then(res =>{setOrder(res.order.number)})
       .catch((eror) => console.log(`Ошибка ${eror}`))
   };

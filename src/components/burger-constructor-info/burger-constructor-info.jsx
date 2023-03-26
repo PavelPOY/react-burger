@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './burger-constructor-info.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -15,6 +16,11 @@ function Info({contralPrice,openModal}) {
       <Button htmlType="button" type="primary" size="large" onClick={openModal}>Оформить заказ</Button>
     </div>
   );
+}
+
+Info.propTypes = {
+  contralPrice: PropTypes.number.isRequired,
+  openModal: PropTypes.func.isRequired,
 }
 
 export default Info;
