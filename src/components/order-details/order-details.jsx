@@ -2,9 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styles from './order-details.module.css';
 import img from '../../images/icon.svg';
+import { getOrderDetails } from '../../services/reducers';
 
 function OrderDetails() {
-  const { order } = useSelector(store => store.orderDetails);
+  const { order } = useSelector(getOrderDetails);
 
   return(
     <div className={`${styles.wrapper} pt-30 pb-30`} >

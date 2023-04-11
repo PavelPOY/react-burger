@@ -10,11 +10,13 @@ import OrderDetails from '../order-details/order-details';
 import BurgerConstructorItem from '../burger-constructor-item/burger-constructor-item';
 import { ADD_BUN, ADD_OTHER_INGREDIENT } from '../../services/actions/burger-constructor';
 import { CLOSE_ORDER } from '../../services/actions/order-details';
+import { getBurgerConstructor } from '../../services/reducers';
+import { getOrderDetails } from '../../services/reducers';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const { bun, other } = useSelector(store => store.burgerConstructor);
-  const { order } = useSelector(store => store.orderDetails);
+  const { bun, other } = useSelector(getBurgerConstructor);
+  const { order } = useSelector(getOrderDetails);
 
   const closeOrder = () => {
     dispatch({ type: CLOSE_ORDER });

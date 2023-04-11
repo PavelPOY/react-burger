@@ -7,10 +7,12 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { typesIngredients } from '../../utils/constant';
 import { CLOSE_INGREDIENT } from '../../services/actions/ingredient-details';
+import { getIngredientDetails } from '../../services/reducers';
+
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
-  const {ingredient} = useSelector(store => store.ingredientDetails);
+  const { ingredient } = useSelector(getIngredientDetails);
 
   const bun = React.useRef(null);
   const sauce = React.useRef(null);

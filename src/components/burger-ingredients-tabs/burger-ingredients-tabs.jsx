@@ -4,7 +4,7 @@ import styles from './burger-ingredients-tabs.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 function Tabs({type,bun,sauce,main,buttonHandler}) {
-  const [current, setCurrent] = React.useState('sauce');
+  const [current, setCurrent] = React.useState('bun');
 
   return (
     <nav className={`${styles.nav} pt-5`}>

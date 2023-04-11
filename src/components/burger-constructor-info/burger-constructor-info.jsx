@@ -3,13 +3,14 @@ import { useDispatch,useSelector } from 'react-redux';
 import styles from './burger-constructor-info.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getOrder } from '../../services/actions/order-details';
+import { getBurgerConstructor } from '../../services/reducers';
 
 function Info() {
   const dispatch = useDispatch();
-  const { other, contralPrice } = useSelector(store => store.burgerConstructor);
+  const { bun, other, contralPrice } = useSelector(getBurgerConstructor);
 
   const openOrder = () => {
-    const id = other.map(item => item._id);
+    const id = [bun._id, ...other.map(item => item._id), bun._id];
     dispatch(getOrder(id));
   };
   return (

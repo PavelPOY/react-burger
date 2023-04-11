@@ -12,3 +12,6 @@ export const rootReducer = combineReducers({
 });
 
 export const getBurgerIngredients = (store) => store.burgerIngredients;
+export const getBurgerConstructor = (store) => store.burgerConstructor;
+export const getIngredientDetails = (store) => store.ingredientDetails;
+export const getOrderDetails = (store) => store.orderDetails;
