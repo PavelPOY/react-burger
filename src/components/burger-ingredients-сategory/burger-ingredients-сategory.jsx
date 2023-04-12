@@ -8,7 +8,7 @@ import { getBurgerIngredients } from '../../services/reducers';
 
 function Сategory({type, text, componentRef}) {
   const { ingredients: data } = useSelector(getBurgerIngredients);
-  const dataType = React.useMemo(() => data.filter((item) => item.type === type),[data]);
+  const dataType = React.useMemo(() => data.filter((item) => item.type === type),[data,type]);
   
   return (
     <div ref={componentRef} className='pt-10' id={type}>
@@ -23,7 +23,7 @@ function Сategory({type, text, componentRef}) {
 Сategory.propTypes = {
   type: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  componentRef: PropTypes.object.isRequired,
+  componentRef: PropTypes.func.isRequired,
 }
 
 export default Сategory;
