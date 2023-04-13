@@ -1,73 +1,88 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDrop } from 'react-dnd';
+import uuid from 'react-uuid';
 import styles from './burger-constructor.module.css';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import Info from '../burger-constructor-info/burger-constructor-info';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-import {IngredientsContext} from '../../utils/context';
-import {getOrderData} from '../../utils/api';
+import BurgerConstructorItem from '../burger-constructor-item/burger-constructor-item';
+import { ADD_BUN, ADD_OTHER_INGREDIENT } from '../../services/actions/burger-constructor';
+import { CLOSE_ORDER } from '../../services/actions/order-details';
+import { getBurgerConstructor } from '../../services/reducers';
+import { getOrderDetails } from '../../services/reducers';
 
 function BurgerConstructor() {
-  const {data} = React.useContext(IngredientsContext);
-  const [openModal, setOpenModal] = React.useState(null);
-  const [order, setOrder] = React.useState(null);
+  const dispatch = useDispatch();
+  const { bun, other } = useSelector(getBurgerConstructor);
+  const { order } = useSelector(getOrderDetails);
 
-  const ingredients = React.useMemo(() => data.filter((item) => item.type !== 'bun' ), [data]);
-  const ingredientBun = React.useMemo(() => data.find((item) => item.type === 'bun'), [data]);
-  const bun = ingredientBun === undefined ? 0 : ingredientBun.price
-  const contralPrice = React.useMemo(() => bun * 2 + ingredients.reduce((value,item) => value + item.price, 0),[bun,ingredients] );
-
-  const getOrder = () => {
-    const id = ingredients.map(item => item._id);
-    setOpenModal(true);
-    getOrderData(id)
-      .then(res =>{setOrder(res.order.number)})
-      .catch((eror) => console.log(`Ошибка ${eror}`))
+  const closeOrder = () => {
+    dispatch({ type: CLOSE_ORDER });
   };
+
+  const [, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      if (item.ingredient.type === "bun") {
+        dispatch({
+          type: ADD_BUN,
+          bun: item.ingredient,
+        });
+      } else {
+        dispatch({
+          type: ADD_OTHER_INGREDIENT,
+          other: { ...item.ingredient, id: uuid()},
+        });
+      }
+    },
+  });
 
   return (
     <section className={`${styles.section} pt-25`}>
-      <div className='pl-4'>
+      <div className='pl-4' ref={dropTarget}>
         <div className='pr-4 pb-4 pl-8 '>
-          {!ingredientBun ? null :
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={ingredientBun.price}
-            thumbnail={ingredientBun.image}
-          />}
+          {!!bun.price
+            ?(<ConstructorElement
+              type="top"
+              isLocked={true}
+              text="Краторная булка N-200i (верх)"
+              price={bun.price}
+              thumbnail={bun.image}
+            />)
+            : null
+          }
         </div>
 
         <div className={styles.list}>
-        {ingredients.map((item) => {
-            return (
-              <div key={item._id} className={`${styles.containerElement} pt-4 pr-2`}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image}
-                />
-              </div>
-            )
-          })}
+        {other.length === 0
+            ? null
+            : other.map((item, index) => {
+              return item
+                ? (<BurgerConstructorItem
+                  key={item.id}
+                  index={index}
+                  item={item}
+                />)
+                : null;
+            })}
         </div>
 
         <div className='pt-4 pr-4 pl-8'>
-        {!ingredientBun ? null :
+        {!!bun.price &&
           <ConstructorElement
             type="bottom"
             isLocked={true}
             text="Краторная булка N-200i (низ)"
-            price={ingredientBun.price}
-            thumbnail={ingredientBun.image}
+            price={bun.price}
+            thumbnail={bun.image}
           />}
         </div>
 
-        <Info contralPrice={contralPrice} openModal={getOrder} />
+        <Info />
       </div>
-      {openModal && (<Modal closeModal={() => setOpenModal(false)}> <OrderDetails order={order}/> </Modal>)}
+      {order && (<Modal closeModal={closeOrder}> <OrderDetails /> </Modal>)}
     </section>
   );
 }

@@ -1,9 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import styles from './order-details.module.css';
 import img from '../../images/icon.svg';
+import { getOrderDetails } from '../../services/reducers';
 
-function OrderDetails({order}) {
+function OrderDetails() {
+  const { order } = useSelector(getOrderDetails);
 
   return(
     <div className={`${styles.wrapper} pt-30 pb-30`} >
@@ -14,10 +16,6 @@ function OrderDetails({order}) {
       <p className='text text_type_main-default text_color_inactive pt-2'>Дождитесь готовности на орбитальной станции</p>
     </div>
   )
-}
-
-OrderDetails.propTypes = {
-  order: PropTypes.number,
 }
 
 export default OrderDetails;

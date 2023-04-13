@@ -18,12 +18,4 @@
 .list::-webkit-scrollbar-thumb {
   background-color: #8585ad;
 }
-.containerElement {
-  display: flex;
-	align-items: center;
-	column-gap: 13.5px;
-}
 
-.containerElement:first-of-type {
-  padding-top: 0;
-}
